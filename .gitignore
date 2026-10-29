@@ -1,1 +1,14 @@
 node_modules/
+build/
+prebuilds/
+target/
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.pc
+*.node
+__pycache__/
+*.egg-info/
+dist/

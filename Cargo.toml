@@ -1,0 +1,27 @@
+[package]
+authors = [ "JavierL-Dev <javierlopez.7476@gmail.com>" ]
+autoexamples = false
+categories = [ "parser-implementations", "parsing", "text-editors" ]
+description = "An npm config grammar for tree-sitter"
+edition = "2024"
+keywords = [ "incremental", "parsing", "tree-sitter", "npmrc" ]
+license = "MIT"
+name = "tree-sitter-npmrc"
+readme = "README.md"
+repository = "https://github.com/JavierL-Dev/tree-sitter-npm-config.git"
+version = "0.2.0"
+
+build = "bindings/rust/build.rs"
+include = [ "bindings/rust/*", "grammar.js", "queries/*", "src/*", "tree-sitter.json", "/LICENSE" ]
+
+[lib]
+path = "bindings/rust/lib.rs"
+
+[dependencies]
+tree-sitter-language = "0.1"
+
+[build-dependencies]
+cc = "1.2"
+
+[dev-dependencies]
+tree-sitter = "0.27.0"

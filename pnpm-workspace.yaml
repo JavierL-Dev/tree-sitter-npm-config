@@ -16,6 +16,7 @@ trustPolicy: no-downgrade
 allowBuilds:
   esbuild: true
   rolldown: true
+  tree-sitter: true
   tree-sitter-cli: true
   unrs-resolver: true
 

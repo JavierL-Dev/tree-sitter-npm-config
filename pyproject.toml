@@ -1,0 +1,29 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [ "setuptools>=62.4.0", "wheel" ]
+
+[project]
+authors = [ { email = "javierlopez.7476@gmail.com", name = "JavierL-Dev" } ]
+classifiers = [
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Compilers",
+  "Topic :: Text Processing :: Linguistic",
+  "Typing :: Typed",
+]
+description = "An npm config grammar for tree-sitter"
+keywords = [ "incremental", "parsing", "tree-sitter", "npmrc" ]
+license.text = "MIT"
+name = "tree-sitter-npmrc"
+readme = "README.md"
+requires-python = ">=3.10"
+version = "0.2.0"
+
+[project.urls]
+Homepage = "https://github.com/JavierL-Dev/tree-sitter-npm-config.git"
+
+[project.optional-dependencies]
+core = [ "tree-sitter~=0.24" ]
+
+[tool.cibuildwheel]
+build = "cp310-*"
+build-frontend = "build"

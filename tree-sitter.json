@@ -1,0 +1,35 @@
+{
+  "grammars": [
+    {
+      "name": "npmrc",
+      "scope": "source.npmrc",
+      "path": ".",
+      "highlights": ["queries/highlights.scm"],
+      "file-types": ["npmrc"]
+    }
+  ],
+  "bindings": {
+    "c": true,
+    "go": false,
+    "java": false,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": false,
+    "zig": false
+  },
+  "metadata": {
+    "version": "0.2.0",
+    "license": "MIT",
+    "description": "An npm config grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "JavierL-Dev",
+        "email": "javierlopez.7476@gmail.com"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/JavierL-Dev/tree-sitter-npm-config.git"
+    }
+  }
+}

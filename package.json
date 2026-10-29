@@ -1,5 +1,51 @@
 {
+  "name": "tree-sitter-npm-config",
+  "version": "0.2.0",
+  "description": "An npm config grammar for tree-sitter",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JavierL-Dev/tree-sitter-npm-config.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "parsing",
+    "tree-sitter",
+    "npm",
+    "npmrc"
+  ],
+  "main": "bindings/node/index.js",
+  "types": "bindings/node/index.d.ts",
+  "files": [
+    "grammar.js",
+    "binding.gyp",
+    "tree-sitter.json",
+    "bindings/node/*",
+    "queries/**",
+    "src/*.c",
+    "src/*.json",
+    "src/tree_sitter/**"
+  ],
+  "scripts": {
+    "install": "node-gyp-build",
+    "generate": "tree-sitter generate",
+    "pretest": "node-gyp-build",
+    "test": "tree-sitter test && node --test bindings/node/binding_test.js"
+  },
+  "dependencies": {
+    "node-addon-api": "^8.9.2",
+    "node-gyp-build": "^4.8.4"
+  },
+  "peerDependencies": {
+    "tree-sitter": "^0.25.1"
+  },
+  "peerDependenciesMeta": {
+    "tree-sitter": {
+      "optional": true
+    }
+  },
   "devDependencies": {
+    "node-gyp": "^13.0.2",
+    "tree-sitter": "^0.25.1",
     "tree-sitter-cli": "^0.27.0"
   }
 }
