@@ -12,3 +12,6 @@ target/
 __pycache__/
 *.egg-info/
 dist/
+.clangd
+.venv/
+Cargo.lock
