@@ -52,7 +52,7 @@ Spaces around equals sign and trailing spaces
       (plain_value))))
 
 ================================================================================
-Quoted value is kept as plain text
+Quoted value is a string
 ================================================================================
 
 allow-git="none"
@@ -63,7 +63,7 @@ allow-git="none"
   (assignment
     key: (key)
     value: (value
-      (plain_value))))
+      (string))))
 
 ================================================================================
 Scoped auth key with registry path
@@ -106,7 +106,7 @@ key[]=second
   (assignment
     key: (key)
     value: (value
-      (plain_value)))
+      (string)))
   (assignment
     key: (key)
     value: (value
@@ -130,9 +130,8 @@ node-options = "${NODE_OPTIONS?} --use-system-ca"
   (assignment
     key: (key)
     value: (value
-      (plain_value)
-      (variable)
-      (plain_value))))
+      (string
+        (variable)))))
 
 ================================================================================
 Escape sequences in values
@@ -146,11 +145,9 @@ ca="-----BEGIN\nXXXX\n-----END"
   (assignment
     key: (key)
     value: (value
-      (plain_value)
-      (escaped_char)
-      (plain_value)
-      (escaped_char)
-      (plain_value))))
+      (string
+        (escaped_char)
+        (escaped_char)))))
 
 ================================================================================
 Empty value
@@ -223,3 +220,299 @@ cache = ${HOME}/.npm-packages
     key: (key)
     value: (value
       (variable))))
+
+================================================================================
+Bare key means true
+================================================================================
+
+save-exact
+production ; enabled
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    key: (key))
+  (assignment
+    key: (key)
+    (comment)))
+
+================================================================================
+Inline comments after a value
+================================================================================
+
+registry=https://registry.npmjs.org/ ; default registry
+strict-ssl=false # temporarily
+url=https://example.com/#frag
+empty= ; nothing
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    key: (key)
+    value: (value
+      (plain_value))
+    (comment))
+  (assignment
+    key: (key)
+    value: (value
+      (plain_value))
+    (comment))
+  (assignment
+    key: (key)
+    value: (value
+      (plain_value))
+    (comment))
+  (assignment
+    key: (key)
+    (comment)))
+
+================================================================================
+Comment inside a key ends at the equals sign
+================================================================================
+
+a ; note = x
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    key: (key)
+    (comment)
+    value: (value
+      (plain_value))))
+
+================================================================================
+Escaped comment characters stay in the value
+================================================================================
+
+a=x\;y\#z ; real comment
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    key: (key)
+    value: (value
+      (plain_value)
+      (escaped_char)
+      (plain_value)
+      (escaped_char)
+      (plain_value))
+    (comment)))
+
+================================================================================
+Sections
+================================================================================
+
+top=1
+[section]
+key=2
+[ nested.section ]   
+[]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    key: (key)
+    value: (value
+      (plain_value)))
+  (section
+    name: (section_name))
+  (assignment
+    key: (key)
+    value: (value
+      (plain_value)))
+  (section
+    name: (section_name))
+  (section))
+
+================================================================================
+Quoted values keep comment characters
+================================================================================
+
+a="x ; y # z"
+b='single ; quoted'
+c="${TOKEN}"
+d='${A}#b'
+e="say \"hi\""
+f="x" ; comment after the quotes
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    key: (key)
+    value: (value
+      (string)))
+  (assignment
+    key: (key)
+    value: (value
+      (string)))
+  (assignment
+    key: (key)
+    value: (value
+      (string
+        (variable))))
+  (assignment
+    key: (key)
+    value: (value
+      (string
+        (variable))))
+  (assignment
+    key: (key)
+    value: (value
+      (string
+        (escaped_char)
+        (escaped_char))))
+  (assignment
+    key: (key)
+    value: (value
+      (string))
+    (comment)))
+
+================================================================================
+Text after a closing quote
+================================================================================
+
+a="x" y
+b=x "y"
+c=it's
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    key: (key)
+    value: (value
+      (string)
+      (plain_value)))
+  (assignment
+    key: (key)
+    value: (value
+      (plain_value)))
+  (assignment
+    key: (key)
+    value: (value
+      (plain_value))))
+
+================================================================================
+Variable names and variables in keys
+================================================================================
+
+a=${my.var-name}
+//${REGISTRY_HOST}/:_authToken=${TOKEN}
+b=\${NOT_A_VAR}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    key: (key)
+    value: (value
+      (variable)))
+  (assignment
+    key: (key
+      (variable))
+    value: (value
+      (variable)))
+  (assignment
+    key: (key)
+    value: (value
+      (escaped_char)
+      (plain_value))))
+
+================================================================================
+Keys with spaces and values with equals signs
+================================================================================
+
+my key = my value
+_auth=dXNlcjpwYXNz==
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    key: (key)
+    value: (value
+      (plain_value)))
+  (assignment
+    key: (key)
+    value: (value
+      (plain_value))))
+
+================================================================================
+Lone carriage return ends a line
+================================================================================
+
+a=bc=d
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    key: (key)
+    value: (value
+      (plain_value)))
+  (assignment
+    key: (key)
+    value: (value
+      (plain_value))))
+
+================================================================================
+Unterminated quote runs to the end of the line
+================================================================================
+
+a="abc
+b='x ; y
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    key: (key)
+    value: (value
+      (string)))
+  (assignment
+    key: (key)
+    value: (value
+      (string))))
+
+================================================================================
+Line starting with [ that is not a header is a key
+================================================================================
+
+[a
+[b]=1
+[c] d
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    key: (key))
+  (assignment
+    key: (key)
+    value: (value
+      (plain_value)))
+  (assignment
+    key: (key)))
+
+================================================================================
+Line starting with = has no key
+================================================================================
+
+=v
+  =
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    value: (value
+      (plain_value)))
+  (assignment))
+
+

@@ -1,9 +1,16 @@
 (comment) @comment
+(section_name) @type
+[
+  "["
+  "]"
+] @punctuation.bracket
 (key) @property
 (value) @string
+(string) @string
+(escaped_char) @string.escape
 ((plain_value) @boolean
-  (#match? @boolean "^\\s*(true|false)\\s*$"))
+  (#match? @boolean "^(true|false|null)$"))
 ((plain_value) @number
-  (#match? @number "^\\s*[0-9]+(\\.[0-9]+)?\\s*$"))
+  (#match? @number "^[0-9]+(\\.[0-9]+)?$"))
 (variable) @keyword
 "=" @operator

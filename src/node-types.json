@@ -5,7 +5,7 @@
     "fields": {
       "key": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "key",
@@ -19,6 +19,51 @@
         "types": [
           {
             "type": "value",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "key",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escaped_char",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "section",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "section_name",
             "named": true
           }
         ]
@@ -41,6 +86,29 @@
         {
           "type": "comment",
           "named": true
+        },
+        {
+          "type": "section",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escaped_char",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
         }
       ]
     }
@@ -62,6 +130,10 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "variable",
           "named": true
         }
@@ -69,7 +141,31 @@
     }
   },
   {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "$",
+    "named": false
+  },
+  {
+    "type": "'",
+    "named": false
+  },
+  {
     "type": "=",
+    "named": false
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "\\",
+    "named": false
+  },
+  {
+    "type": "]",
     "named": false
   },
   {
@@ -81,11 +177,11 @@
     "named": true
   },
   {
-    "type": "key",
+    "type": "plain_value",
     "named": true
   },
   {
-    "type": "plain_value",
+    "type": "section_name",
     "named": true
   },
   {
