@@ -25,7 +25,7 @@ type NodeInfo =
  *
  * @example
  * import Parser from "tree-sitter";
- * import Npmrc from "tree-sitter-npmrc";
+ * import Npmrc from "tree-sitter-npm-config";
  *
  * const parser = new Parser();
  * parser.setLanguage(Npmrc);

@@ -1,4 +1,4 @@
-LANGUAGE_NAME := tree-sitter-npmrc
+LANGUAGE_NAME := tree-sitter-npm-config
 HOMEPAGE_URL := https://github.com/JavierL-Dev/tree-sitter-npm-config.git
 VERSION := 0.2.0
 DESCRIPTION := An npm config grammar for tree-sitter

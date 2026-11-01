@@ -13,7 +13,7 @@ classifiers = [
 description = "An npm config grammar for tree-sitter"
 keywords = [ "incremental", "parsing", "tree-sitter", "npmrc" ]
 license.text = "MIT"
-name = "tree-sitter-npmrc"
+name = "tree-sitter-npm-config"
 readme = "README.md"
 requires-python = ">=3.10"
 version = "0.2.0"
