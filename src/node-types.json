@@ -48,11 +48,24 @@
           "named": true
         },
         {
+          "type": "plain_value",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "variable",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "plain_value",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "section",
@@ -68,6 +81,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -119,7 +142,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "escaped_char",
@@ -174,10 +197,6 @@
   },
   {
     "type": "escaped_char",
-    "named": true
-  },
-  {
-    "type": "plain_value",
     "named": true
   },
   {
