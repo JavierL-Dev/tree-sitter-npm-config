@@ -35,9 +35,27 @@ key=value
 | `escaped_char` | A backslash plus one character, such as `\;` or `\#` |
 | `plain_value` | Any other text |
 
+## Comments
+
+`ini`'s README documents only full-line comments, but its code also ends an unquoted key or value at an unescaped `;` or `#`. This grammar does the same, and npm 11 behaves the same way (checked with `npm config get`):
+
+```ini
+registry=https://registry.npmjs.org/ ; this comment is ignored
+```
+
+Because an unquoted `;` or `#` starts a comment, a value that contains one is cut short:
+
+```ini
+pass=abc#123     ; npm reads "abc"
+pass="abc#123"   ; npm reads "abc#123"
+pass=abc\#123    ; npm reads "abc#123"
+```
+
+Quote a value, or escape the character, when it contains `;` or `#`.
+
 ## Differences from `ini`:
 
-The grammar produces no `ERROR` nodes for any input, because `ini` accepts every input. The differences below change how text is split or read, not whether it parses.
+The grammar produces no `ERROR` nodes for any input, because `ini` accepts every input. The differences below change how text is split or read.
 
 - An unclosed quote (`a="abc`) runs to the end of the line as a `string`. `ini` stops a value at an unescaped `;` or `#`, so `a="x ; y` keeps `; y` here and `ini` drops it.
 - A quoted value followed by a comment (`a="x" ; c`) is a `string` plus a comment. `ini` keeps the quotes in the value.
