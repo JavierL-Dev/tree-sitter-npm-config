@@ -370,11 +370,11 @@ f="x" ; comment after the quotes
   (assignment
     key: (key)
     value: (value
-      (string))
+      (plain_value))
     (comment)))
 
 ================================================================================
-Text after a closing quote
+Quote followed by text is plain text
 ================================================================================
 
 a="x" y
@@ -387,7 +387,6 @@ c=it's
   (assignment
     key: (key)
     value: (value
-      (string)
       (plain_value)))
   (assignment
     key: (key)
@@ -421,7 +420,7 @@ b=\${NOT_A_VAR}
   (assignment
     key: (key)
     value: (value
-      (escaped_char)
+      (plain_value)
       (plain_value))))
 
 ================================================================================
@@ -447,7 +446,8 @@ _auth=dXNlcjpwYXNz==
 Lone carriage return ends a line
 ================================================================================
 
-a=bc=d
+a=b
+c=d
 
 --------------------------------------------------------------------------------
 
@@ -462,7 +462,7 @@ a=bc=d
       (plain_value))))
 
 ================================================================================
-Unterminated quote runs to the end of the line
+Unclosed quote is plain text, and ";" starts a comment
 ================================================================================
 
 a="abc
@@ -474,11 +474,12 @@ b='x ; y
   (assignment
     key: (key)
     value: (value
-      (string)))
+      (plain_value)))
   (assignment
     key: (key)
     value: (value
-      (string))))
+      (plain_value))
+    (comment)))
 
 ================================================================================
 Line starting with [ that is not a header is a key
@@ -501,7 +502,7 @@ Line starting with [ that is not a header is a key
     key: (key)))
 
 ================================================================================
-Line starting with = has no key
+Unindented line starting with = has no key, an indented one has an empty key
 ================================================================================
 
 =v
@@ -513,6 +514,121 @@ Line starting with = has no key
   (assignment
     value: (value
       (plain_value)))
-  (assignment))
+  (assignment
+    key: (key)))
 
+================================================================================
+Quoted values with inner quotes, an escaped quote, and an escaped ";" in a variable
+================================================================================
 
+a="a"b;c"
+b="a\"
+c=${\;}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    key: (key)
+    value: (value
+      (string)))
+  (assignment
+    key: (key)
+    value: (value
+      (string
+        (escaped_char))))
+  (assignment
+    key: (key)
+    value: (value
+      (variable))))
+
+================================================================================
+Quoted keys, including a lone quote
+================================================================================
+
+"a b"=c
+'k'=v
+'=x
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    key: (key
+      (string))
+    value: (value
+      (plain_value)))
+  (assignment
+    key: (key
+      (string))
+    value: (value
+      (plain_value)))
+  (assignment
+    key: (key
+      (string))
+    value: (value
+      (plain_value))))
+
+================================================================================
+A section name ends at an unescaped ; or #
+================================================================================
+
+[a;b]
+[a\;b]
+[;a]
+--------------------------------------------------------------------------------
+
+(source_file
+  (section
+    name: (section_name)
+    (comment))
+  (section
+    name: (section_name))
+  (section
+    (comment)))
+
+================================================================================
+An indented = line has an empty key, an unindented one has none
+================================================================================
+
+ =v
+=v
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    key: (key)
+    value: (value
+      (plain_value)))
+  (assignment
+    value: (value
+      (plain_value))))
+
+================================================================================
+Backslashes before ${ are literal or expanded as npm counts them
+================================================================================
+
+a=\${A}
+b=\\${A}
+c=\\\${A}
+d='\${A}'
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    key: (key)
+    value: (value
+      (plain_value)
+      (plain_value)))
+  (assignment
+    key: (key)
+    value: (value
+      (plain_value)
+      (plain_value)))
+  (assignment
+    key: (key)
+    value: (value
+      (variable)))
+  (assignment
+    key: (key)
+    value: (value
+      (string))))
