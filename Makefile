@@ -1,6 +1,6 @@
 LANGUAGE_NAME := tree-sitter-npm-config
 HOMEPAGE_URL := https://github.com/JavierL-Dev/tree-sitter-npm-config.git
-VERSION := 0.2.0
+VERSION := 0.1.5
 DESCRIPTION := An npm config grammar for tree-sitter
 
 # repository
