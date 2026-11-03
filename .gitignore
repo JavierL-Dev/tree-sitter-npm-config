@@ -1,17 +1,19 @@
+# Editor
+.clangd
+
+# Node artifacts
 node_modules/
 build/
-prebuilds/
-target/
+
+# C artifacts
 *.o
 *.a
 *.so
-*.dylib
-*.dll
 *.pc
-*.node
-__pycache__/
-*.egg-info/
-dist/
-.clangd
+
+# Python artifacts
 .venv/
-Cargo.lock
+__pycache__/
+
+# Rust artifacts
+target/
