@@ -1,0 +1,19 @@
+name: Create release
+
+on:
+  push:
+    tags: ["v1.*"]
+
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
+jobs:
+  release:
+    # Pinned to the commit of tree-sitter/workflows main at the time of writing
+    uses: tree-sitter/workflows/.github/workflows/release.yml@10c66d66e558b37df92e2a8ec5321218a6547b04
