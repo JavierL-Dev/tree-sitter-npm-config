@@ -4,6 +4,11 @@
 # SECURITY: block packages newer than 30 days (43200 minutes)
 minimumReleaseAge: 43200
 
+# TEMPORARY (2026-11-03): undici 8.12.2 fixes advisories in undici 8.11.2, which node-gyp uses.
+# 8.12.2 is younger than 30 days until 2026-11-14. Remove this exception then.
+minimumReleaseAgeExclude:
+  - undici
+
 # SECURITY: reject a version whose publishing trust signals regressed
 trustPolicy: no-downgrade
 
