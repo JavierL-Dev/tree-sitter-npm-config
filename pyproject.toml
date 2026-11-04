@@ -16,7 +16,7 @@ license.text = "MIT"
 name = "tree-sitter-npm-config"
 readme = "README.md"
 requires-python = ">=3.10"
-version = "0.1.5"
+version = "0.1.6"
 
 [project.urls]
 Homepage = "https://github.com/JavierL-Dev/tree-sitter-npm-config.git"

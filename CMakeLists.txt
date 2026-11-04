@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 project(tree-sitter-npm-config
-        VERSION "0.1.5"
+        VERSION "0.1.6"
         DESCRIPTION "An npm config grammar for tree-sitter"
         HOMEPAGE_URL "https://github.com/JavierL-Dev/tree-sitter-npm-config.git"
         LANGUAGES C)

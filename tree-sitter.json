@@ -19,7 +19,7 @@
     "zig": false
   },
   "metadata": {
-    "version": "0.1.5",
+    "version": "0.1.6",
     "license": "MIT",
     "description": "An npm config grammar for tree-sitter",
     "authors": [
