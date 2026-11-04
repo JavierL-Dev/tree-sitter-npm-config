@@ -24,7 +24,7 @@ key=value
 |---|---|
 | `comment` | `#` or `;` to the end of the line. Inside a key it ends at `=`: `a ; note = x` sets `a` to `x` |
 | `section` | A `[name]` header, with the name in `section_name`. The whole line must be the header, as in `ini`. A `;` or `#` ends the name, and the rest up to `]` is a `comment` |
-| `assignment` | `key`, `key=` or `key = value`. A bare key means `true`. An unindented line starting with `=` has no key, and an indented one has an empty `key` |
+| `assignment` | `key`, `key=` or `key = value`. A bare key means `true`. An unindented line starting with `=` has no key, and an indented one has an empty `key`. That `key` has zero width, so its text is `""`, as `ini` returns, and editors show nothing for it |
 | `key` | Any text up to `=` or a comment, including scoped (`//host/:_authToken`), array (`key[]`) and `[`-prefixed keys. Can contain `variable` nodes, or be a single `string` when `ini` reads the key as quoted |
 | `value` | One or more of the following |
 | `string` | A key or value wrapped in matching `"` or `'` quotes, as `ini` reads it. A lone quote counts. `;` and `#` are text inside it. The closing quote may be missing only when a backslash takes it at the end of the line |
