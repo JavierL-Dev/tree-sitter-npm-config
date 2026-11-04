@@ -88,6 +88,17 @@ static int32_t rest_end(TSLexer *lexer, int32_t stop, bool *json) {
   return last;
 }
 
+// Whether any non-space character comes before the end of the line, or before `stop` when it is
+// not 0. It stops at the first one, so a quote followed by text costs only the characters up to it.
+// rest_end reads to the end and would make a line with many quotes quadratic.
+static bool has_text_after(TSLexer *lexer, int32_t stop) {
+  while (!lexer->eof(lexer) && !is_newline(lexer->lookahead) && lexer->lookahead != stop) {
+    if (!is_space(lexer->lookahead)) return true;
+    lexer->advance(lexer, false);
+  }
+  return false;
+}
+
 // A "[" starts a section only when ini's section regex matches the whole line:
 // /^\[([^\]]*)\]\s*$/. Otherwise the line is a key, so nothing is emitted and
 // the lexer reads "[" as key text. Returning false resets the lexer.
@@ -164,7 +175,7 @@ static bool scan_inner(TSLexer *lexer, const bool *valid_symbols) {
 
   lexer->advance(lexer, false);
   lexer->mark_end(lexer);
-  if (rest_end(lexer, key ? '=' : 0, NULL) == 0) return false;
+  if (!has_text_after(lexer, key ? '=' : 0)) return false;
 
   lexer->result_symbol = type;
   return true;
@@ -235,7 +246,7 @@ static bool scan_end(TSLexer *lexer, const bool *valid_symbols) {
     stop = '=';
   }
   lexer->mark_end(lexer);
-  if (rest_end(lexer, stop, NULL) != 0) return false;
+  if (has_text_after(lexer, stop)) return false;
 
   lexer->result_symbol = type;
   return true;
