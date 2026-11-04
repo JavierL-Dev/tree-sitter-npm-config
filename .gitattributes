@@ -6,7 +6,7 @@ src/parser.c linguist-generated
 src/tree_sitter/* linguist-generated
 
 # C bindings
-bindings/c/* linguist-generated
+bindings/c/** linguist-generated
 CMakeLists.txt linguist-generated
 Makefile linguist-generated
 
@@ -17,7 +17,7 @@ package.json linguist-generated
 pnpm-lock.yaml linguist-generated
 
 # Python bindings
-bindings/python/* linguist-generated
+bindings/python/** linguist-generated
 pyproject.toml linguist-generated
 setup.py linguist-generated
 
